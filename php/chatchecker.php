@@ -21,6 +21,10 @@ if($GetM === false){trigger_error('Wrong SQL: ' . $Get_Messages . ' Error: ' . $
 		$i+=1;
 		$idpt=$row['idpt'];
 		$i+=1;
+		$hscore=$row['hscore'];
+		$i+=1;
+		$ascore=$row['ascore'];
+		$i+=1;
 		$time=strtotime($row['time']);
 		if ($row['date']==date("d/m/Y")) {
 			$datetime[$j++]=date("h:ia",$time);
@@ -39,9 +43,10 @@ for ($m=0; $m <sizeof($message_display) ; $m++)
 {
 	// echo "<div class='mdv'><span class='s'>".$message_display[$m+1]."</span><br style='font-size:30px;'><span class='st'>".$datetime[$j]."</span><br></div>";
 }else{
-	$response = array();
-	$response[1] = $idpt;
-	$response[2] = $message_display[$m+1];
+	
+	$responseId = $idpt;
+	$responseMsg = $message_display[$m+1];
+	$response = array('senderPtId' => $responseId, 'SenderMessage' => $responseMsg, 'SenderHtotal' => $hscore, 'SenderAtotal' => $ascore);
 
 	echo json_encode($response);
 	}$m++;

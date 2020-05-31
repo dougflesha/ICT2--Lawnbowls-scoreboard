@@ -1,5 +1,5 @@
 <?php  
-session_start();
+
 echo '<br><!DOCTYPE html>
 <html>
 <head>
@@ -63,5 +63,62 @@ echo '<br><!DOCTYPE html>
 
 ?>
 <script src="bsjs/jquery.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/notification.js"></script>
+<script>
+	$(document).ready(function(){
+  var temp=0;
+
+function appender(x){
+  
+  var mx=x;
+  $.post('php/chatchecker.php',{mx:mx},function(data) {
+          
+
+    $.ajax({
+      url: 'php/packet.php', 
+      success: function(mc){
+        var info=mc.split('fly');
+        temp=info[0];
+      }
+    });
+
+    var duce = jQuery.parseJSON(data);
+
+    var hscore = parseFloat(duce.SenderHtotal);
+    var ascore = parseFloat(duce.SenderAtotal);
+
+    // console.log(hscore);
+    // console.log(ascore);
+ 
+    $('#score1').val(hscore);
+    $('#score2').val(ascore);
+
+  });
+}
+
+var interval = setInterval(function(){
+
+  $.ajax({
+    url: 'php/packet.php', 
+    success: function(inf){
+      var info=inf.split('fly');
+      var ctr=info[0];
+      var lst=info[1];
+
+
+    if (ctr-temp>=1) {
+
+      appender(ctr-temp);
+    }else if (ctr-temp<0) {check();}
+
+      if (lst=='1') {$('.online').html(" is <strong>Online</strong>");}
+      else{$('.online').text(" is Offline");}
+    }
+  });
+
+  },400);
+  
+
+
+
+});
+</script>

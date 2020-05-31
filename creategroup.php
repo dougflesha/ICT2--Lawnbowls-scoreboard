@@ -6,7 +6,9 @@ echo '<!DOCTYPE html>
   <title>';
  echo $_SESSION["name_store"]."'s page";
   echo '</title>
-  <link rel="stylesheet" href="bsjs/bootstrap.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="bsjs/bootstrap.min.css">
 <link rel="stylesheet" href="css/search.css" type="text/css"><script src="js/nsc.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/wall.css">

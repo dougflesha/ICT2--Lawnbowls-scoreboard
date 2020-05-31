@@ -3,10 +3,12 @@ session_start();
 
 $idpts = $_POST['idpts'];
 $message = $_POST['message'];
+$hscore = $_POST['hscore'];
+$ascore = $_POST['ascore'];
 $sql_sendmessage=
 "
-insert into ".$_SESSION["CTN"]." (sender, sender_id, message,date,time,date2,time2,idpt)
-values ('".$_SESSION["name_store"]."','".$_SESSION["id_store"]."','".$message."','".date("d/m/Y")."','".date("h:i:sa")."','".date("Ymd")."','".time()."','".$idpts."')
+insert into ".$_SESSION["CTN"]." (sender, sender_id, message,date,time,date2,time2,idpt, hscore, ascore)
+values ('".$_SESSION["name_store"]."','".$_SESSION["id_store"]."','".$message."','".date("d/m/Y")."','".date("h:i:sa")."','".date("Ymd")."','".time()."','".$idpts."','".$hscore."','".$ascore."')
 ";
 
 $SendM=$con->query($sql_sendmessage);

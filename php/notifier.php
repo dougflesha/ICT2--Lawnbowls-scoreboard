@@ -39,4 +39,4 @@ if ($i==$ctr) {
 	echo '<strong>NOTHING NEW</strong>';
 }
 require 'discon.php'; ?>
-<script src="js/nsc.js"></script>
+<!-- <script src="js/nsc.js"></script> -->

@@ -6,6 +6,8 @@ echo '<!DOCTYPE html>
   <title>';
   echo $_SESSION["name_store"]."'s page";
   echo '</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="bsjs/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="php/messages.css">
 <script src="bsjs/jquery.min.js"></script>

@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var temp=0;
   check();
- //$('.messagediv').scrollTop($('.messagediv')[0].scrollHeight);
+ $('.messagediv').scrollTop($('.messagediv')[0].scrollHeight);
 
     // $(".textmessagebox").keypress(function(e){
     //      if(e.which == 13) {
@@ -55,39 +55,28 @@ function appender(x){
     });
 
     var duce = jQuery.parseJSON(data);
+    var art1 = duce.key1;
+    var art2 = duce.key2;
 
-    alert(duce);
+    var ptid = parseFloat(art1) + 2;
 
-    var art1 = duce.senderPtId;
-    var numId = art1.split(/([0-9]+)/)
-    var art2 = parseFloat(duce.SenderMessage);
+    $('.pts[name="' + ptid + '"]').val(art2);
 
-    var ptid = parseFloat(numId[1]);
-
+    var priThird = ptid - 3;
+    var nextValue = ptid + 1;
     
-    $('#'+ art1).val(art2);
+    var sum = parseFloat($('.pts[name="' + priThird + '"]').val()) + parseFloat(art2);
 
-    if (art1.indexOf("ph") >= 0) {
-          $('#pa' + ptid).attr('value','0').attr("disabled", 'disabled');
-          $('.pts.ph').attr("disabled", 'disabled');
-        } else {
-          $('#ph' + ptid).attr('value','0').attr("disabled", 'disabled');
-          $('.pts.pa').attr("disabled", 'disabled');
-        }
+    $('.pts[name="' + nextValue + '"]').val(sum);
 
-        var sumh = 0;
-        $('.pts.ph').prevAll().each(function(){
-            sumh += Number($(this).val());
-        });
-        $('#th' + ptid).val(sumh);
-        $('#htotal').val(sumh);
+    $('#atotal').val(sum);
 
-        var suma = 0;
-        $('.pts.pa').prevAll().each(function(){
-            suma += Number($(this).val());
-        });
-        $('#ta' + ptid).val(suma);
-        $('#atotal').val(suma);
+
+    var hscore = duce.key3;
+ 
+    $('#score1').val(hscore);
+
+
 
   });
 }
@@ -143,47 +132,37 @@ $.ajax({
 // Sum up score values 
     
      
-    $('.pts').keyup(function () {
+    $('.pts').change(function () {
 
         var thisValue = $(this).attr('name');
-        var sId = thisValue.split(/([0-9]+)/)
+        var priThird = parseFloat(thisValue) - 3;
+        var nextValue = parseFloat(thisValue) + 1;
+        
+        var sum = parseFloat($('.pts[name="' + priThird + '"]').val()) + parseFloat($(this).val());
 
-        var pointId = parseFloat(sId[1]);
-
-        if (thisValue.indexOf("ph") >= 0) {
-          $('#pa' + pointId).attr('value','0').attr("disabled", 'disabled');
-          $('.pts.pa').attr("disabled", 'disabled');
-        } else {
-          $('#ph' + pointId).attr('value','0').attr("disabled", 'disabled');
-          $('.pts.ph').attr("disabled", 'disabled');
-        }
+        $('.pts[name="' + nextValue + '"]').val(sum);
 
         var sumh = 0;
-        $('.pts.ph').prevAll().each(function(){
-            sumh += Number($(this).val());
-        });
-        $('#th' + pointId).val(sumh);
+            $('.pts.h').each(function() {
+                sumh += Number($(this).val());
+            });
         $('#htotal').val(sumh);
-
-        var suma = 0;
-        $('.pts.pa').prevAll().each(function(){
-            suma += Number($(this).val());
-        });
-        $('#ta' + pointId).val(suma);
-
-        $('#atotal').val(suma);
 
         var message=$(this).val();
         var idpts=$(this).attr("name");
-        var hscore=$('#htotal').val();
-        var ascore=$('#atotal').val();
+
 
         if ((message!="")){
-            $.post('php/sendmessage.php',{message:message, idpts:idpts, hscore:hscore, ascore:ascore},function(fire, id) {
+            $.post('php/sendmessage.php',{message:message, idpts:idpts},function(fire, id) {
               //$("input").val("");
             });
 
         }
+
+        var hscore=$('#htotal').val();
+        $.post('php/sendmessage.php',{hscore:hscore},function(data) {
+              //$("input").val("");
+            });
 
     });
 
